@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Web App</title>
+</head>
+<body>
+    <script>
+        // Создаем объект с данными
+        var data = {
+            "exam": "Web",
+            "date": new Date().toISOString().slice(0,10) // Получаем сегодняшнюю дату в формате YYYY-MM-DD
+        };
+
+        // Отправляем данные как JSON
+        var jsonContent = JSON.stringify(data);
+
+        // Устанавливаем заголовки
+        var headers = new Headers({
+            "exam": "Web",
+            "Content-Type": "application/json"
+        });
+
+        // Создаем объект ответа
+        var response = new Response(jsonContent, {
+            status: 200,
+            headers: headers
+        });
+
+        // Возвращаем ответ
+        self.addEventListener('fetch', function(event) {
+            event.respondWith(
+                Promise.resolve(response)
+            );
+        });
+    </script>
+</body>
+</html>
